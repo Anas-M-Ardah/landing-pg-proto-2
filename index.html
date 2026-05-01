@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>MediCore — Medical Equipment</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-mesh"></div>
+
+<!-- ========================================== TICKER -->
+<div class="ticker">
+  <div class="ticker-track" id="tickerTrack"></div>
+</div>
+
+<!-- ========================================== HEADER -->
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="#/" class="logo">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v6"/><path d="M16 2v6"/><path d="M6 8h12v8a6 6 0 0 1-12 0z"/><path d="M9 14h6"/><path d="M12 11v6"/></svg>
+      </span>
+      <div>
+        <span data-company-name>MediCore</span>
+        <small>Est. 2010 · Medical Tech</small>
+      </div>
+    </a>
+    <nav>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#/" data-i18n="home">Home</a></li>
+        <li><a href="#/about" data-i18n="about">About</a></li>
+        <li><a href="#/services" data-i18n="services">Services</a></li>
+        <li><a href="#/products" data-i18n="products">Catalog</a></li>
+        <li><a href="#/clients" data-i18n="clients">Clients</a></li>
+        <li><a href="#/contact" data-i18n="contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="nav-actions">
+      <button class="lang-btn" id="langBtn">العربية</button>
+      <a href="admin.html" class="btn btn-outline btn-sm">Admin</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="view"></main>
+
+<!-- ========================================== FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="#/" class="logo">
+          <span class="mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v6"/><path d="M16 2v6"/><path d="M6 8h12v8a6 6 0 0 1-12 0z"/><path d="M9 14h6"/><path d="M12 11v6"/></svg>
+          </span>
+          <div>
+            <span data-company-name>MediCore</span>
+            <small>Est. 2010</small>
+          </div>
+        </a>
+        <p data-company-tagline style="margin-top:18px;color:var(--muted);font-family:var(--serif);font-size:18px;font-style:italic;line-height:1.4;max-width:340px;"></p>
+        <div class="social-row">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.5 3h-2.4v7A10 10 0 0 0 22 12z"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zM8.3 18.3H5.7V9.7h2.6v8.6zM7 8.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm11.3 9.8h-2.6v-4.2c0-1 0-2.3-1.4-2.3s-1.6 1.1-1.6 2.2v4.3H10V9.7h2.5v1.2h0c.4-.7 1.2-1.4 2.5-1.4 2.7 0 3.2 1.8 3.2 4.1v4.7z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.3 2.2.4.6.2 1 .5 1.4 1 .5.4.8.8 1 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 1.8-.4 2.2-.2.6-.5 1-1 1.4-.4.5-.8.8-1.4 1-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.8-.3-2.2-.4-.6-.2-1-.5-1.4-1-.5-.4-.8-.8-1-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-1.8.4-2.2.2-.6.5-1 1-1.4.4-.5.8-.8 1.4-1 .4-.2 1-.4 2.2-.4 1.3-.1 1.7-.1 4.9-.1zm0 2.1c-3.2 0-3.5 0-4.8.1-1 .1-1.6.2-2 .4-.5.2-.8.4-1.2.8-.4.4-.6.7-.8 1.2-.1.4-.3 1-.4 2-.1 1.3-.1 1.6-.1 4.8s0 3.5.1 4.8c.1 1 .2 1.6.4 2 .2.5.4.8.8 1.2.4.4.7.6 1.2.8.4.1 1 .3 2 .4 1.3.1 1.6.1 4.8.1s3.5 0 4.8-.1c1-.1 1.6-.2 2-.4.5-.2.8-.4 1.2-.8.4-.4.6-.7.8-1.2.1-.4.3-1 .4-2 .1-1.3.1-1.6.1-4.8s0-3.5-.1-4.8c-.1-1-.2-1.6-.4-2-.2-.5-.4-.8-.8-1.2-.4-.4-.7-.6-1.2-.8-.4-.1-1-.3-2-.4-1.3-.1-1.6-.1-4.8-.1zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 8.2a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm5.2-8.4a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h4 data-i18n="quick_links">Index</h4>
+        <ul>
+          <li><a href="#/" data-i18n="home">Home</a></li>
+          <li><a href="#/about" data-i18n="about">About</a></li>
+          <li><a href="#/services" data-i18n="services">Services</a></li>
+          <li><a href="#/products" data-i18n="products">Catalog</a></li>
+          <li><a href="#/contact" data-i18n="contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Catalog</h4>
+        <ul id="footerCats"></ul>
+      </div>
+      <div>
+        <h4 data-i18n="get_in_touch">Reach Us</h4>
+        <ul>
+          <li data-company-address></li>
+          <li data-company-phone></li>
+          <li data-company-email></li>
+          <li data-company-hours></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 <span data-company-name></span> · ALL RIGHTS RESERVED</span>
+      <span>PROTOTYPE 02 · ASP.NET 8 + ANGULAR 20</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+let db = DB.load();
+function $(s,r=document){return r.querySelector(s);}
+function $$(s,r=document){return [...r.querySelectorAll(s)];}
+function tr(k){return I18N.t(k);}
+function L(o,f){return o[f+'_'+I18N.current] ?? o[f+'_en'] ?? '';}
+function pad(n){return String(n).padStart(2,'0');}
+
+function toast(msg,type=''){
+  const el = $('#toast');
+  el.className = 'toast show ' + type;
+  el.textContent = msg;
+  setTimeout(()=>el.classList.remove('show'),3000);
+}
+
+// Ticker content
+function buildTicker(){
+  const c = db.company;
+  const items = [
+    `${L(c,'name')} · ${L(c,'tagline')}`,
+    'ISO 13485 Certified',
+    '24/7 Technical Support',
+    `${db.products.length} Products in Catalog`,
+    `Serving ${db.clients.length}+ Healthcare Institutions`,
+    'New: CardioTech monitors now in stock',
+    'Free installation in major cities',
+  ];
+  // Duplicate for seamless scroll
+  const html = (items.concat(items)).map(t=>`<span>${t}</span>`).join('');
+  $('#tickerTrack').innerHTML = html;
+}
+
+function applyI18n(){
+  $$('[data-i18n]').forEach(el=>{ el.textContent = tr(el.dataset.i18n); });
+  const c = db.company;
+  $$('[data-company-name]').forEach(el=>el.textContent = L(c,'name'));
+  $$('[data-company-tagline]').forEach(el=>el.textContent = L(c,'tagline'));
+  $$('[data-company-address]').forEach(el=>el.textContent = L(c,'address'));
+  $$('[data-company-phone]').forEach(el=>el.textContent = c.phone);
+  $$('[data-company-email]').forEach(el=>el.textContent = c.email);
+  $$('[data-company-hours]').forEach(el=>el.textContent = L(c,'hours'));
+  $('#langBtn').textContent = I18N.current === 'en' ? 'العربية' : 'English';
+  const fc = $('#footerCats');
+  if(fc) fc.innerHTML = db.categories.map(c=>`<li><a href="#/products">${L(c,'name')}</a></li>`).join('');
+}
+
+I18N.set(I18N.current);
+$('#langBtn').addEventListener('click',()=>{
+  I18N.set(I18N.current==='en'?'ar':'en');
+  render(); applyI18n(); buildTicker();
+});
+$('#menuToggle').addEventListener('click',()=>$('#navLinks').classList.toggle('open'));
+
+// Router
+const routes = {
+  '/'         : viewHome,
+  '/about'    : viewAbout,
+  '/services' : viewServices,
+  '/products' : viewProducts,
+  '/clients'  : viewClients,
+  '/contact'  : viewContact,
+};
+function render(){
+  db = DB.load();
+  buildTicker();
+  const hash = location.hash.replace(/^#/,'') || '/';
+  const pm = hash.match(/^\/product\/(.+)$/);
+  if(pm){ viewProductDetail(pm[1]); afterRender(hash); return; }
+  (routes[hash]||viewHome)();
+  afterRender(hash);
+}
+function afterRender(hash){
+  $$('.nav-links a').forEach(a=>{
+    const h = a.getAttribute('href').replace(/^#/,'');
+    a.classList.toggle('active', h === hash || (h==='/'&&hash==='/'));
+  });
+  $('#navLinks').classList.remove('open');
+  applyI18n();
+  window.scrollTo({top:0,behavior:'instant'});
+}
+window.addEventListener('hashchange', render);
+
+// =============================================== HOME — bento
+function viewHome(){
+  const c = db.company;
+  const hp = db.homepage;
+  const featured = db.products.filter(p=>p.featured).slice(0,5);
+  const services = db.services.slice(0,6);
+  const clients = db.clients;
+  const heroImg = featured[0]?.image || 'https://images.unsplash.com/photo-1666214280391-8ff5bd3c0bf0?auto=format&fit=crop&w=1200&q=80';
+
+  const heroTitle = L(hp,'hero_title');
+  // Wrap a couple words in <em> for the accent serif italic
+  const heroHTML = heroTitle.replace(/(\S+\s+\S+)$/, '<em>$1</em>');
+
+  $('#view').innerHTML = `
+    <!-- HERO BENTO -->
+    <section class="hero">
+      <div class="container">
+        <div class="bento">
+
+          <!-- main hero -->
+          <div class="span-8 row-4 bento-hero">
+            <div class="stamp">${I18N.current==='ar' ? 'حلول طبية متكاملة' : 'Medical solutions, end-to-end'}</div>
+            <h1>${heroHTML}</h1>
+            <div>
+              <p>${L(hp,'hero_sub')}</p>
+              <div class="actions">
+                <a href="#/products" class="btn btn-primary">${L(hp,'hero_cta') || tr('browse')}
+                  <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+                </a>
+                <a href="#/contact" class="btn btn-outline">${tr('request_quote')}</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- hero image -->
+          <div class="span-4 row-3 bento-img">
+            <img src="${heroImg}" alt="" onerror="this.style.display='none'">
+            <div class="overlay">
+              <span class="ind">LIVE INVENTORY</span>
+              <span>${pad(db.products.length)}/${pad(50)}</span>
+            </div>
+          </div>
+
+          <!-- iso seal -->
+          <div class="span-4 row-1 bento-iso">
+            <div class="seal">ISO 13485</div>
+            <div class="small">Quality Mgmt for Medical Devices</div>
+          </div>
+
+          <!-- 4 stat tiles -->
+          ${hp.stats.map((s,i)=>`
+            <div class="span-3 row-2 bento-stat">
+              <div class="ix">${pad(i+1)}</div>
+              <span class="num">${s.v}</span>
+              <span class="lbl">${L(s,'l')}</span>
+            </div>
+          `).join('')}
+
+        </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee">
+      <div class="marquee-track">
+        <span>
+          ${[...db.clients,...db.clients].map(cl=>L(cl,'name')).join('</span><span>')}
+        </span>
+      </div>
+    </div>
+
+    <!-- FEATURED -->
+    <section>
+      <div class="container">
+        <div class="section-meta">
+          <div>
+            <span class="section-tag">${pad(1)} ${tr('featured_products')}</span>
+            <h2>Equipment chosen for <em>precision</em>, built for <em>longevity</em>.</h2>
+          </div>
+          <div class="right">${I18N.current==='ar' ? 'مختارة بعناية من شركاء عالميين، مع تركيب وتدريب وضمان كامل.' : 'Hand-picked from global manufacturing partners — installed, calibrated, and warranted by us.'}</div>
+        </div>
+        <div class="editorial-grid">
+          ${featured.length ? renderEditorialGrid(featured) : '<div class="span-12 empty">No featured products yet</div>'}
+        </div>
+        <div style="text-align:center;margin-top:36px;">
+          <a href="#/products" class="btn btn-outline">${tr('view_all')} →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FIGURES -->
+    <section style="padding-top:0;">
+      <div class="container">
+        <div class="figures">
+          ${hp.stats.map(s=>`
+            <div>
+              <div class="v">${s.v}</div>
+              <div class="l">${L(s,'l')}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section>
+      <div class="container">
+        <div class="section-meta">
+          <div>
+            <span class="section-tag">${pad(2)} ${tr('our_services')}</span>
+            <h2>Beyond delivery — <em>everything</em> that comes after.</h2>
+          </div>
+          <div class="right">${I18N.current==='ar' ? 'نحن لسنا موزّعًا، بل شريكك الفنّي طوال عمر الجهاز.' : 'We are not a distributor. We are your engineering partner for the device\'s entire operational life.'}</div>
+        </div>
+        <div class="svc-list">
+          ${services.map((s,i)=>`
+            <div class="svc-row">
+              <div class="num">${pad(i+1)}.</div>
+              <div class="title">${L(s,'title')}</div>
+              <div class="desc">${L(s,'desc')}</div>
+              <div class="ico">${iconSVG(s.icon)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <!-- CLIENTS -->
+    <section style="padding-top:0;">
+      <div class="container">
+        <div class="section-meta">
+          <div>
+            <span class="section-tag">${pad(3)} ${tr('clients')}</span>
+            <h2>Trusted by <em>${clients.length}+</em> institutions across the region.</h2>
+          </div>
+          <div class="right"><a href="#/clients" class="btn btn-outline">${tr('view_all')} →</a></div>
+        </div>
+        <div class="clients-grid">
+          ${clients.slice(0,8).map((cl,i)=>`
+            <div class="client-cell">
+              <span class="ix">${pad(i+1)}/${pad(clients.length)}</span>
+              <span class="nm">${L(cl,'name')}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section style="padding-top:0;padding-bottom:0;">
+      <div class="container">
+        <div class="cta-edit">
+          <h2>${I18N.current==='ar' ? 'هل تخطّط لتجهيز <em>قسم جديد</em>؟' : 'Planning a <em>new wing</em> or department?'}</h2>
+          <div class="actions">
+            <p>${tr('cta_sub')}</p>
+            <a href="#/contact" class="btn btn-primary">${tr('request_quote')}
+              <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+function renderEditorialGrid(list){
+  // Editorial mix: first big, then mix of 4 and 3
+  const layouts = ['span-6','span-3','span-3','span-4','span-4','span-4'];
+  return list.map((p,i)=>{
+    const span = layouts[i] || 'span-4';
+    const cat = db.categories.find(c=>c.id===p.categoryId);
+    return `
+      <a href="#/product/${p.id}" class="e-card ${span}">
+        <span class="e-num">${pad(i+1)} / ${pad(list.length)}</span>
+        ${cat?`<span class="e-cat">${L(cat,'name')}</span>`:''}
+        <div class="e-img"><img src="${p.image}" alt="" loading="lazy" onerror="this.parentNode.style.background='var(--surface-2)';this.style.display='none'"></div>
+        <div class="e-body">
+          <h3>${L(p,'name')}</h3>
+          <p class="desc">${L(p,'desc')}</p>
+          <div class="e-foot">
+            <span class="e-brand">${p.brand || ''}</span>
+            <span class="e-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+// =============================================== ABOUT
+function viewAbout(){
+  const c = db.company;
+  $('#view').innerHTML = `
+    <div class="page-head">
+      <div class="container">
+        <div class="crumbs"><a href="#/">${tr('home')}</a> · ${tr('about')}</div>
+        <h1>${I18N.current==='ar' ? 'نَبني الثقة <em>منذ 2010</em>.' : 'Building <em>trust</em> since 2010.'}</h1>
+        <p class="lede">${L(c,'tagline')}</p>
+      </div>
+    </div>
+    <section>
+      <div class="container">
+        <div class="about-block">
+          <div class="about-img-frame">
+            <img src="https://images.unsplash.com/photo-1631815589968-fdb09a223b1e?auto=format&fit=crop&w=900&q=85" alt="Facility" onerror="this.parentNode.style.background='var(--surface-2)';this.style.display='none'">
+            <div class="stamp">FACILITY · 2400 m²</div>
+          </div>
+          <div>
+            <span class="section-tag">${pad(1)} Our story</span>
+            <h2 class="serif" style="font-size:42px;line-height:1.05;margin:18px 0 24px;">${I18N.current==='ar' ? 'خمسة عشر عامًا في خدمة <em>الرعاية الصحية</em>.' : 'Fifteen years serving <em>healthcare</em>.'}</h2>
+            <p style="font-size:17px;color:var(--ink-2);">${L(c,'about')}</p>
+            <div class="pull-quote">${I18N.current==='ar' ? '"نحن لا نبيع المعدات — بل نبني <em>شراكات</em> تُعاش لعقود."' : '"We don\'t sell equipment. We build <em>partnerships</em> measured in decades."'}</div>
+            <a href="#/contact" class="btn btn-primary">${tr('request_quote')}
+              <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="container">
+        <div class="figures">
+          <div><div class="v">15</div><div class="l">${I18N.current==='ar'?'سنوات في القطاع':'Years in business'}</div></div>
+          <div><div class="v">300+</div><div class="l">${I18N.current==='ar'?'منشأة صحية':'Institutions served'}</div></div>
+          <div><div class="v">40+</div><div class="l">${I18N.current==='ar'?'شريك تجاري':'Brand partners'}</div></div>
+          <div><div class="v">24/7</div><div class="l">${I18N.current==='ar'?'دعم فني':'Technical support'}</div></div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// =============================================== SERVICES
+function viewServices(){
+  $('#view').innerHTML = `
+    <div class="page-head">
+      <div class="container">
+        <div class="crumbs"><a href="#/">${tr('home')}</a> · ${tr('services')}</div>
+        <h1>${I18N.current==='ar' ? 'خدمات <em>متكاملة</em>.' : 'A <em>complete</em> service portfolio.'}</h1>
+        <p class="lede">${I18N.current==='ar' ? 'كل ما تحتاجه — من الاستشارة الأولى حتى عقد الصيانة طويل الأمد.' : 'Everything you need — from first consultation to lifetime maintenance contracts.'}</p>
+      </div>
+    </div>
+    <section>
+      <div class="container">
+        <div class="svc-list">
+          ${db.services.map((s,i)=>`
+            <div class="svc-row">
+              <div class="num">${pad(i+1)}.</div>
+              <div class="title">${L(s,'title')}</div>
+              <div class="desc">${L(s,'desc')}</div>
+              <div class="ico">${iconSVG(s.icon)}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+
+    <section style="padding-top:0;">
+      <div class="container">
+        <div class="cta-edit">
+          <h2>${I18N.current==='ar' ? 'هل تحتاج خدمة <em>مخصّصة</em>؟' : 'Need a <em>custom</em> arrangement?'}</h2>
+          <div class="actions">
+            <p>${I18N.current==='ar' ? 'تحدّث مع مهندس مبيعات وسنبني عرضًا يناسب حجم عملياتك.' : 'Talk to a sales engineer — we build packages that fit your operating scale.'}</p>
+            <a href="#/contact" class="btn btn-primary">Get in touch
+              <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// =============================================== PRODUCTS LISTING
+let productSearch = '';
+let productCat = '';
+
+function viewProducts(){
+  $('#view').innerHTML = `
+    <div class="page-head">
+      <div class="container">
+        <div class="crumbs"><a href="#/">${tr('home')}</a> · ${tr('products')}</div>
+        <h1>${I18N.current==='ar' ? 'كتالوج <em>المعدات</em>.' : 'The full <em>catalog</em>.'}</h1>
+        <p class="lede">${I18N.current==='ar' ? 'تصفّح حسب الفئة أو ابحث عن جهاز محدّد.' : 'Browse by category or search for a specific device.'}</p>
+      </div>
+    </div>
+    <section>
+      <div class="container">
+        <div class="filter-bar">
+          <input type="search" id="prodSearch" class="search-input" placeholder="${tr('search')}" value="${productSearch}">
+        </div>
+        <div class="chip-row" style="margin-bottom:32px;">
+          <button class="chip ${productCat===''?'active':''}" data-cat="">${tr('filter_all')}</button>
+          ${db.categories.map(c=>`<button class="chip ${productCat===c.id?'active':''}" data-cat="${c.id}">${L(c,'name')}</button>`).join('')}
+        </div>
+        <div id="productsList"></div>
+      </div>
+    </section>
+  `;
+  renderProductList();
+  $('#prodSearch').addEventListener('input', e => { productSearch = e.target.value; renderProductList(); });
+  $$('.chip').forEach(b => b.addEventListener('click', () => {
+    productCat = b.dataset.cat;
+    $$('.chip').forEach(c => c.classList.toggle('active', c.dataset.cat === productCat));
+    renderProductList();
+  }));
+}
+
+function renderProductList(){
+  const t = productSearch.trim().toLowerCase();
+  const list = db.products.filter(p=>{
+    if(productCat && p.categoryId!==productCat) return false;
+    if(!t) return true;
+    return (p.name_en+' '+p.name_ar+' '+p.sku+' '+p.brand).toLowerCase().includes(t);
+  });
+  if(list.length===0){
+    $('#productsList').innerHTML = `<div class="empty">${tr('no_products')}</div>`;
+    return;
+  }
+  $('#productsList').innerHTML = `<div class="editorial-grid">${list.map((p,i)=>{
+    const cat = db.categories.find(c=>c.id===p.categoryId);
+    return `
+      <a href="#/product/${p.id}" class="e-card span-4">
+        <span class="e-num">${pad(i+1)}/${pad(list.length)}</span>
+        ${cat?`<span class="e-cat">${L(cat,'name')}</span>`:''}
+        <div class="e-img"><img src="${p.image}" alt="" loading="lazy" onerror="this.parentNode.style.background='var(--surface-2)';this.style.display='none'"></div>
+        <div class="e-body">
+          <h3>${L(p,'name')}</h3>
+          <p class="desc">${L(p,'desc')}</p>
+          <div class="e-foot">
+            <span class="e-brand">${p.brand || ''}</span>
+            <span class="e-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+          </div>
+        </div>
+      </a>
+    `;
+  }).join('')}</div>`;
+}
+
+// =============================================== PRODUCT DETAIL
+function viewProductDetail(id){
+  const p = db.products.find(x=>x.id===id);
+  if(!p){
+    $('#view').innerHTML = `<div class="container" style="padding:120px 28px;"><div class="empty">${tr('no_products')}</div></div>`;
+    return;
+  }
+  const cat = db.categories.find(c=>c.id===p.categoryId);
+  const specs = p['specs_'+I18N.current] || p.specs_en || [];
+  const idx = db.products.findIndex(x=>x.id===id) + 1;
+
+  $('#view').innerHTML = `
+    <div class="page-head">
+      <div class="container">
+        <div class="crumbs"><a href="#/">${tr('home')}</a> · <a href="#/products">${tr('products')}</a> · ${L(p,'name')}</div>
+      </div>
+    </div>
+    <section>
+      <div class="container detail-grid">
+        <div class="detail-img-wrap">
+          <img src="${p.image}" alt="${L(p,'name')}" onerror="this.parentNode.style.background='var(--surface-2)';this.style.display='none'">
+          <span class="num-stamp">№ ${pad(idx)} / ${pad(db.products.length)}</span>
+        </div>
+        <div class="detail-side">
+          <div class="cat">${cat?L(cat,'name'):''}</div>
+          <h1>${L(p,'name')}</h1>
+          <div class="meta">
+            <div><div class="k">${tr('brand')}</div><div class="v">${p.brand || '—'}</div></div>
+            <div><div class="k">${tr('sku')}</div><div class="v mono">${p.sku || '—'}</div></div>
+          </div>
+          <p class="desc">"${L(p,'desc')}"</p>
+          ${specs.length ? `
+            <div class="section-tag" style="margin-bottom:14px;">${tr('specifications')}</div>
+            <ul class="spec-list">
+              ${specs.map(s=>`<li><span></span><span>${s}</span></li>`).join('')}
+            </ul>` : ''}
+          <div class="detail-actions">
+            <a href="#/contact" class="btn btn-primary">${tr('request_quote')}
+              <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
+            </a>
+            <a href="#/products" class="btn btn-outline">← ${tr('back')}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// =============================================== CLIENTS
+function viewClients(){
+  $('#view').innerHTML = `
+    <div class="page-head">
+      <div class="container">
+        <div class="crumbs"><a href="#/">${tr('home')}</a> · ${tr('clients')}</div>
+        <h1>${I18N.current==='ar' ? 'عملاؤنا — <em>المرجع</em>.' : 'Our clients — <em>the reference</em>.'}</h1>
+        <p class="lede">${I18N.current==='ar' ? 'مؤسسات تعتمد علينا لإبقاء عملياتها تعمل، يومًا بعد يوم.' : 'Institutions that count on us to keep their operations running, day after day.'}</p>
+      </div>
+    </div>
+    <section>
+      <div class="container">
+        <div class="clients-grid">
+          ${db.clients.map((cl,i)=>`
+            <div class="client-cell">
+              <span class="ix">№ ${pad(i+1)}</span>
+              <span class="nm">${L(cl,'name')}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// =============================================== CONTACT
+function viewContact(){
+  const c = db.company;
+  $('#view').innerHTML = `
+    <div class="page-head">
+      <div class="container">
+        <div class="crumbs"><a href="#/">${tr('home')}</a> · ${tr('contact')}</div>
+        <h1>${I18N.current==='ar' ? 'لنبدأ <em>المحادثة</em>.' : 'Let\'s start a <em>conversation</em>.'}</h1>
+        <p class="lede">${tr('contact_intro')}</p>
+      </div>
+    </div>
+    <section>
+      <div class="container contact-grid">
+        <div class="contact-info">
+          <div class="contact-block">
+            <div class="lbl">${tr('visit_us')}</div>
+            <div class="val">${L(c,'address')}</div>
+          </div>
+          <div class="contact-block">
+            <div class="lbl">${tr('call_us')}</div>
+            <div class="val"><a href="tel:${c.phone}">${c.phone}</a></div>
+          </div>
+          <div class="contact-block">
+            <div class="lbl">${tr('email_us')}</div>
+            <div class="val"><a href="mailto:${c.email}">${c.email}</a></div>
+          </div>
+          <div class="contact-block">
+            <div class="lbl">${tr('working_hours')}</div>
+            <div class="val">${L(c,'hours')}</div>
+          </div>
+        </div>
+        <form class="form" id="contactForm">
+          <div class="form-row">
+            <div class="field"><label>${tr('full_name')}</label><input type="text" name="name" required></div>
+            <div class="field"><label>${tr('email')}</label><input type="email" name="email" required></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>${tr('phone')}</label><input type="tel" name="phone"></div>
+            <div class="field"><label>${tr('subject')}</label><input type="text" name="subject"></div>
+          </div>
+          <div class="field"><label>${tr('message')}</label><textarea name="message" required></textarea></div>
+          <div style="margin-top:14px;">
+            <button type="submit" class="btn btn-primary">${tr('send')}
+              <span class="arrow"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+  `;
+  $('#contactForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const fd = new FormData(e.target);
+    const data = Object.fromEntries(fd.entries());
+    db.messages.unshift({ id: DB.uid('m'), ...data, created: new Date().toISOString(), read: false });
+    DB.save(db);
+    e.target.reset();
+    toast(tr('msg_sent'));
+  });
+}
+
+function iconSVG(name){
+  const set = {
+    truck:        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>',
+    wrench:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>',
+    shield:       '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    graduation:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
+    phone:        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+    compass:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>',
+    award:        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>',
+    heart:        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>',
+  };
+  return set[name] || set['shield'];
+}
+
+render();
+applyI18n();
+buildTicker();
+</script>
+</body>
+</html>

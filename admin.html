@@ -1,0 +1,791 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Admin · MediCore</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Cairo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="bg-mesh"></div>
+
+<!-- ========================================== LOGIN -->
+<div id="loginScreen" class="login-shell" style="display:none;">
+  <div class="login-card">
+    <a href="#" class="logo">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v6"/><path d="M16 2v6"/><path d="M6 8h12v8a6 6 0 0 1-12 0z"/><path d="M9 14h6"/><path d="M12 11v6"/></svg>
+      </span>
+      <span>MediCore Admin</span>
+    </a>
+    <h1>Sign in</h1>
+    <p>Enter any email to demo the admin panel.</p>
+    <form id="loginForm" class="form" style="border:0; padding:0;">
+      <div><label>Email</label><input type="email" name="email" value="admin@medicore.example" required></div>
+      <div><label>Password</label><input type="password" name="password" value="demo" required></div>
+      <button type="submit" class="btn btn-primary" style="width:100%;">Sign in</button>
+    </form>
+    <p class="login-hint">Prototype only — no authentication. Any input signs you in.</p>
+    <p style="text-align:center;margin-top:14px"><a href="index.html" style="color:var(--primary-dark);font-size:13px;">← Back to site</a></p>
+  </div>
+</div>
+
+<!-- ========================================== ADMIN APP -->
+<div id="adminApp" class="admin-shell" style="display:none;">
+  <aside class="admin-sidebar" id="sidebar">
+    <a href="#dashboard" class="logo">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v6"/><path d="M16 2v6"/><path d="M6 8h12v8a6 6 0 0 1-12 0z"/><path d="M9 14h6"/><path d="M12 11v6"/></svg>
+      </span>
+      <span>MediCore</span>
+    </a>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <a href="#dashboard" data-route="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg> <span data-i18n="dashboard">Dashboard</span></a>
+      <a href="#products" data-route="products"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> <span data-i18n="manage_products">Products</span></a>
+      <a href="#categories" data-route="categories"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg> <span data-i18n="manage_categories">Categories</span></a>
+      <a href="#services" data-route="services"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> <span data-i18n="manage_services">Services</span></a>
+      <a href="#clients" data-route="clients"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> <span data-i18n="manage_clients">Clients</span></a>
+      <a href="#users" data-route="users"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> <span data-i18n="manage_users">Users</span></a>
+      <div class="sidebar-divider"></div>
+      <a href="#homepage" data-route="homepage"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg> <span data-i18n="manage_homepage">Homepage</span></a>
+      <a href="#company" data-route="company"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/></svg> <span data-i18n="manage_company">Company</span></a>
+      <a href="#messages" data-route="messages"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> <span data-i18n="view_messages">Messages</span></a>
+    </nav>
+    <div style="margin-top:auto; padding-top: 24px;" class="sidebar-foot">
+      <a href="index.html" style="display:flex; align-items:center; gap:8px; color:#94a3b8; padding: 10px 14px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+        <span data-i18n="back_to_site">Back to site</span>
+      </a>
+      <button class="btn btn-ghost btn-sm" id="resetBtn" style="width:100%; justify-content:flex-start; color:#fca5a5; margin-top:6px;" data-i18n="reset_data">Reset to seed</button>
+      <button class="btn btn-ghost btn-sm" id="logoutBtn" style="width:100%; justify-content:flex-start; color:#cbd5e1; margin-top:6px;">Sign out</button>
+    </div>
+  </aside>
+
+  <main class="admin-main">
+    <div class="admin-topbar">
+      <div>
+        <button class="admin-toggle" id="adminToggle" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+        </button>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p id="pageSubtitle">Overview of your content</p>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <button class="lang-btn" id="adminLangBtn">العربية</button>
+      </div>
+    </div>
+    <div id="adminView"></div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div class="modal-backdrop" id="modal">
+  <div class="modal">
+    <div class="modal-head">
+      <h3 id="modalTitle">Edit</h3>
+      <button class="modal-close" id="modalClose">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" id="modalCancel" data-i18n="cancel">Cancel</button>
+      <button class="btn btn-primary" id="modalSave" data-i18n="save">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="data.js"></script>
+<script>
+/* ============================================================
+   Admin app — CRUD over localStorage
+   ============================================================ */
+
+let db = DB.load();
+const SESSION_KEY = 'medequip_session_v1';
+
+function $(s, r=document) { return r.querySelector(s); }
+function $$(s, r=document) { return [...r.querySelectorAll(s)]; }
+function tr(k) { return I18N.t(k); }
+function L(o,f) { return o[f+'_'+I18N.current] ?? o[f+'_en'] ?? ''; }
+function esc(s) { return String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function toast(msg, type='') {
+  const el = $('#toast');
+  el.className = 'toast show ' + type;
+  el.textContent = msg;
+  setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+// ---------- Auth (mock)
+function isLoggedIn() { return localStorage.getItem(SESSION_KEY) === '1'; }
+function login() { localStorage.setItem(SESSION_KEY, '1'); }
+function logout() { localStorage.removeItem(SESSION_KEY); }
+
+function showLogin() {
+  $('#loginScreen').style.display = 'grid';
+  $('#adminApp').style.display = 'none';
+}
+function showApp() {
+  $('#loginScreen').style.display = 'none';
+  $('#adminApp').style.display = 'grid';
+  applyI18n();
+  render();
+}
+
+$('#loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  login();
+  showApp();
+});
+$('#logoutBtn').addEventListener('click', () => { logout(); showLogin(); });
+$('#resetBtn').addEventListener('click', () => {
+  if (confirm('Reset all data to factory seed?')) {
+    db = DB.reset();
+    render();
+    toast('Reset complete', 'success');
+  }
+});
+
+// ---------- i18n
+I18N.set(I18N.current);
+function applyI18n() {
+  $$('[data-i18n]').forEach(el => { el.textContent = tr(el.dataset.i18n); });
+  $('#adminLangBtn').textContent = I18N.current === 'en' ? 'العربية' : 'English';
+}
+$('#adminLangBtn').addEventListener('click', () => {
+  I18N.set(I18N.current === 'en' ? 'ar' : 'en');
+  applyI18n();
+  render();
+});
+$('#adminToggle').addEventListener('click', () => $('#sidebar').classList.toggle('open'));
+
+// ---------- Router
+const routes = {
+  dashboard:  renderDashboard,
+  products:   renderProducts,
+  categories: renderCategories,
+  services:   renderServices,
+  clients:    renderClients,
+  users:      renderUsers,
+  homepage:   renderHomepage,
+  company:    renderCompany,
+  messages:   renderMessages,
+};
+
+function render() {
+  db = DB.load();
+  const route = (location.hash.replace('#','')) || 'dashboard';
+  $$('#sidebarNav a').forEach(a => a.classList.toggle('active', a.dataset.route === route));
+  (routes[route] || renderDashboard)();
+  $('#sidebar').classList.remove('open');
+}
+window.addEventListener('hashchange', render);
+
+// ---------- Modal
+function openModal({ title, bodyHTML, onSave }) {
+  $('#modalTitle').textContent = title;
+  $('#modalBody').innerHTML = bodyHTML;
+  $('#modal').classList.add('open');
+
+  const close = () => $('#modal').classList.remove('open');
+  $('#modalClose').onclick = close;
+  $('#modalCancel').onclick = close;
+  $('#modalSave').onclick = () => {
+    const ok = onSave();
+    if (ok !== false) {
+      close();
+      DB.save(db);
+      render();
+      toast(tr('saved'), 'success');
+    }
+  };
+}
+
+function getModalForm() {
+  const out = {};
+  $$('#modalBody [name]').forEach(el => { out[el.name] = el.value; });
+  return out;
+}
+
+// ============================================================ DASHBOARD
+function renderDashboard() {
+  $('#pageTitle').textContent = tr('dashboard');
+  $('#pageSubtitle').textContent = I18N.current === 'ar' ? 'نظرة عامة على المحتوى' : 'Overview of your content';
+
+  $('#adminView').innerHTML = `
+    <div class="stat-cards">
+      ${[
+        { lbl: tr('total_products'),   num: db.products.length,   route: 'products' },
+        { lbl: tr('total_categories'), num: db.categories.length, route: 'categories' },
+        { lbl: tr('total_services'),   num: db.services.length,   route: 'services' },
+        { lbl: tr('total_clients'),    num: db.clients.length,    route: 'clients' },
+      ].map(s => `
+        <a href="#${s.route}" class="stat-card" style="text-decoration:none;color:inherit;">
+          <div class="ico-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3z"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+          <div class="label">${s.lbl}</div>
+          <div class="num">${s.num}</div>
+        </a>
+      `).join('')}
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>${I18N.current==='ar' ? 'أحدث الرسائل' : 'Latest messages'}</h2>
+        <a href="#messages" class="btn btn-ghost btn-sm">${I18N.current==='ar' ? 'عرض الكل' : 'View all'} →</a>
+      </div>
+      <div class="table-wrap">
+        ${db.messages.length === 0 ? `<div class="empty" style="margin: 24px;">${I18N.current==='ar' ? 'لا توجد رسائل بعد' : 'No messages yet'}</div>` : `
+          <table class="data-table">
+            <thead><tr><th>${tr('full_name')}</th><th>${tr('email')}</th><th>${tr('subject')}</th><th>Date</th></tr></thead>
+            <tbody>
+              ${db.messages.slice(0,5).map(m => `
+                <tr>
+                  <td>${esc(m.name)}</td>
+                  <td>${esc(m.email)}</td>
+                  <td>${esc(m.subject || '—')}</td>
+                  <td>${new Date(m.created).toLocaleDateString()}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `}
+      </div>
+    </div>
+  `;
+}
+
+// ============================================================ PRODUCTS
+function renderProducts() {
+  $('#pageTitle').textContent = tr('manage_products');
+  $('#pageSubtitle').textContent = I18N.current === 'ar' ? 'إضافة وتعديل المعدات الطبية' : 'Add, edit and remove medical equipment';
+
+  $('#adminView').innerHTML = `
+    <div class="panel">
+      <div class="panel-head">
+        <h2>${tr('total_products')} (${db.products.length})</h2>
+        <button class="btn btn-primary btn-sm" id="addBtn">+ ${tr('add_new')}</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Image</th><th>${I18N.current==='ar'?'الاسم':'Name'}</th><th>${tr('category')}</th><th>${tr('brand')}</th><th>${tr('sku')}</th><th>Featured</th><th></th>
+            </tr>
+          </thead>
+          <tbody>
+            ${db.products.map(p => {
+              const cat = db.categories.find(c => c.id === p.categoryId);
+              return `
+                <tr>
+                  <td><img class="thumb-sm" src="${esc(p.image)}" alt="" onerror="this.style.opacity=0"></td>
+                  <td><strong>${esc(L(p,'name'))}</strong></td>
+                  <td>${cat ? esc(L(cat,'name')) : '—'}</td>
+                  <td>${esc(p.brand || '—')}</td>
+                  <td><code style="font-size:12px;color:var(--muted);">${esc(p.sku)}</code></td>
+                  <td>${p.featured ? '<span class="tag-pill blue">Featured</span>' : '<span class="tag-pill gray">—</span>'}</td>
+                  <td class="actions-cell">
+                    <button class="btn btn-outline btn-sm" data-edit="${p.id}">${tr('edit')}</button>
+                    <button class="btn btn-danger btn-sm" data-del="${p.id}">${tr('delete')}</button>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+
+  $('#addBtn').onclick = () => productModal();
+  $$('[data-edit]').forEach(b => b.onclick = () => productModal(b.dataset.edit));
+  $$('[data-del]').forEach(b => b.onclick = () => {
+    if (confirm(tr('confirm_delete'))) {
+      db.products = db.products.filter(p => p.id !== b.dataset.del);
+      DB.save(db); render(); toast(tr('deleted'), 'success');
+    }
+  });
+}
+
+function productModal(id) {
+  const p = id ? db.products.find(x => x.id === id) : {
+    id: DB.uid('p'), categoryId: db.categories[0]?.id, sku: '', name_en:'', name_ar:'', desc_en:'', desc_ar:'',
+    image:'', brand:'', featured: false, specs_en: [], specs_ar: [],
+  };
+  openModal({
+    title: id ? tr('edit') : tr('add_new'),
+    bodyHTML: `
+      <div class="form" style="border:0;padding:0;background:transparent;">
+        <div class="form-row">
+          <div><label>Name (EN)</label><input name="name_en" value="${esc(p.name_en)}"></div>
+          <div><label>Name (AR)</label><input name="name_ar" value="${esc(p.name_ar)}" dir="rtl"></div>
+        </div>
+        <div class="form-row">
+          <div><label>${tr('category')}</label>
+            <select name="categoryId">
+              ${db.categories.map(c => `<option value="${c.id}" ${c.id===p.categoryId?'selected':''}>${esc(L(c,'name'))}</option>`).join('')}
+            </select>
+          </div>
+          <div><label>${tr('brand')}</label><input name="brand" value="${esc(p.brand)}"></div>
+        </div>
+        <div class="form-row">
+          <div><label>${tr('sku')}</label><input name="sku" value="${esc(p.sku)}"></div>
+          <div><label>Image URL</label><input name="image" value="${esc(p.image)}" placeholder="https://..."></div>
+        </div>
+        <div><label>Description (EN)</label><textarea name="desc_en" rows="3">${esc(p.desc_en)}</textarea></div>
+        <div><label>Description (AR)</label><textarea name="desc_ar" rows="3" dir="rtl">${esc(p.desc_ar)}</textarea></div>
+        <div class="form-row">
+          <div><label>Specs (EN, comma separated)</label><input name="specs_en" value="${esc((p.specs_en||[]).join(', '))}"></div>
+          <div><label>Specs (AR, comma separated)</label><input name="specs_ar" value="${esc((p.specs_ar||[]).join(', '))}" dir="rtl"></div>
+        </div>
+        <label style="display:flex;align-items:center;gap:8px;font-weight:500;font-size:14px;color:var(--ink-2);">
+          <input type="checkbox" name="featured" ${p.featured?'checked':''} style="width:auto;margin:0;"> Featured on homepage
+        </label>
+      </div>
+    `,
+    onSave: () => {
+      const f = getModalForm();
+      const out = {
+        id: p.id,
+        name_en: f.name_en.trim(), name_ar: f.name_ar.trim(),
+        categoryId: f.categoryId, brand: f.brand.trim(), sku: f.sku.trim(), image: f.image.trim(),
+        desc_en: f.desc_en.trim(), desc_ar: f.desc_ar.trim(),
+        specs_en: f.specs_en.split(',').map(s=>s.trim()).filter(Boolean),
+        specs_ar: f.specs_ar.split(',').map(s=>s.trim()).filter(Boolean),
+        featured: $('#modalBody [name="featured"]').checked,
+      };
+      if (!out.name_en) { alert('Name (EN) is required'); return false; }
+      if (id) {
+        const i = db.products.findIndex(x => x.id === id);
+        db.products[i] = { ...db.products[i], ...out };
+      } else {
+        db.products.unshift(out);
+      }
+    }
+  });
+}
+
+// ============================================================ CATEGORIES
+function renderCategories() {
+  $('#pageTitle').textContent = tr('manage_categories');
+  $('#pageSubtitle').textContent = I18N.current==='ar' ? 'تنظيم المنتجات حسب الفئة' : 'Organize products by category';
+
+  $('#adminView').innerHTML = `
+    <div class="panel">
+      <div class="panel-head">
+        <h2>${tr('total_categories')} (${db.categories.length})</h2>
+        <button class="btn btn-primary btn-sm" id="addBtn">+ ${tr('add_new')}</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>${I18N.current==='ar'?'الاسم':'Name'} (EN)</th><th>${I18N.current==='ar'?'الاسم':'Name'} (AR)</th><th>Slug</th><th># Products</th><th></th></tr></thead>
+          <tbody>
+            ${db.categories.map(c => `
+              <tr>
+                <td><strong>${esc(c.name_en)}</strong></td>
+                <td>${esc(c.name_ar)}</td>
+                <td><code style="font-size:12px;color:var(--muted);">${esc(c.slug)}</code></td>
+                <td>${db.products.filter(p=>p.categoryId===c.id).length}</td>
+                <td class="actions-cell">
+                  <button class="btn btn-outline btn-sm" data-edit="${c.id}">${tr('edit')}</button>
+                  <button class="btn btn-danger btn-sm" data-del="${c.id}">${tr('delete')}</button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  $('#addBtn').onclick = () => categoryModal();
+  $$('[data-edit]').forEach(b => b.onclick = () => categoryModal(b.dataset.edit));
+  $$('[data-del]').forEach(b => b.onclick = () => {
+    if (db.products.some(p => p.categoryId === b.dataset.del)) {
+      alert(I18N.current==='ar' ? 'لا يمكن حذف فئة تحتوي منتجات.' : 'Cannot delete a category that has products.');
+      return;
+    }
+    if (confirm(tr('confirm_delete'))) {
+      db.categories = db.categories.filter(c => c.id !== b.dataset.del);
+      DB.save(db); render(); toast(tr('deleted'), 'success');
+    }
+  });
+}
+
+function categoryModal(id) {
+  const c = id ? db.categories.find(x => x.id === id) : { id: DB.uid('cat'), slug:'', name_en:'', name_ar:'', icon:'compass' };
+  openModal({
+    title: id ? tr('edit') : tr('add_new'),
+    bodyHTML: `
+      <div class="form" style="border:0;padding:0;background:transparent;">
+        <div class="form-row">
+          <div><label>Name (EN)</label><input name="name_en" value="${esc(c.name_en)}"></div>
+          <div><label>Name (AR)</label><input name="name_ar" value="${esc(c.name_ar)}" dir="rtl"></div>
+        </div>
+        <div class="form-row">
+          <div><label>Slug</label><input name="slug" value="${esc(c.slug)}"></div>
+          <div><label>Icon</label>
+            <select name="icon">
+              ${['compass','shield','truck','wrench','phone','graduation','heart','award'].map(i=>`<option ${c.icon===i?'selected':''}>${i}</option>`).join('')}
+            </select>
+          </div>
+        </div>
+      </div>
+    `,
+    onSave: () => {
+      const f = getModalForm();
+      if (!f.name_en) { alert('Name (EN) required'); return false; }
+      const slug = f.slug.trim() || f.name_en.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+      if (id) Object.assign(db.categories.find(x=>x.id===id), { ...f, slug });
+      else db.categories.push({ id: c.id, ...f, slug });
+    }
+  });
+}
+
+// ============================================================ SERVICES
+function renderServices() {
+  $('#pageTitle').textContent = tr('manage_services');
+  $('#pageSubtitle').textContent = I18N.current==='ar' ? 'الخدمات المعروضة على الموقع' : 'Services shown on your site';
+  $('#adminView').innerHTML = `
+    <div class="panel">
+      <div class="panel-head">
+        <h2>${tr('total_services')} (${db.services.length})</h2>
+        <button class="btn btn-primary btn-sm" id="addBtn">+ ${tr('add_new')}</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Title (EN)</th><th>Title (AR)</th><th>Icon</th><th></th></tr></thead>
+          <tbody>
+            ${db.services.map(s => `
+              <tr>
+                <td><strong>${esc(s.title_en)}</strong></td>
+                <td>${esc(s.title_ar)}</td>
+                <td><span class="tag-pill blue">${esc(s.icon)}</span></td>
+                <td class="actions-cell">
+                  <button class="btn btn-outline btn-sm" data-edit="${s.id}">${tr('edit')}</button>
+                  <button class="btn btn-danger btn-sm" data-del="${s.id}">${tr('delete')}</button>
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  $('#addBtn').onclick = () => serviceModal();
+  $$('[data-edit]').forEach(b => b.onclick = () => serviceModal(b.dataset.edit));
+  $$('[data-del]').forEach(b => b.onclick = () => {
+    if (confirm(tr('confirm_delete'))) {
+      db.services = db.services.filter(s => s.id !== b.dataset.del);
+      DB.save(db); render(); toast(tr('deleted'), 'success');
+    }
+  });
+}
+
+function serviceModal(id) {
+  const s = id ? db.services.find(x=>x.id===id) : { id: DB.uid('s'), icon:'compass', title_en:'', title_ar:'', desc_en:'', desc_ar:'' };
+  openModal({
+    title: id ? tr('edit') : tr('add_new'),
+    bodyHTML: `
+      <div class="form" style="border:0;padding:0;background:transparent;">
+        <div class="form-row">
+          <div><label>Title (EN)</label><input name="title_en" value="${esc(s.title_en)}"></div>
+          <div><label>Title (AR)</label><input name="title_ar" value="${esc(s.title_ar)}" dir="rtl"></div>
+        </div>
+        <div><label>Icon</label>
+          <select name="icon">${['truck','wrench','shield','graduation','phone','compass','heart','award'].map(i=>`<option ${s.icon===i?'selected':''}>${i}</option>`).join('')}</select>
+        </div>
+        <div><label>Description (EN)</label><textarea name="desc_en" rows="3">${esc(s.desc_en)}</textarea></div>
+        <div><label>Description (AR)</label><textarea name="desc_ar" rows="3" dir="rtl">${esc(s.desc_ar)}</textarea></div>
+      </div>
+    `,
+    onSave: () => {
+      const f = getModalForm();
+      if (!f.title_en) { alert('Title (EN) required'); return false; }
+      if (id) Object.assign(db.services.find(x=>x.id===id), f);
+      else db.services.push({ id: s.id, ...f });
+    }
+  });
+}
+
+// ============================================================ CLIENTS
+function renderClients() {
+  $('#pageTitle').textContent = tr('manage_clients');
+  $('#pageSubtitle').textContent = I18N.current==='ar' ? 'المؤسسات المعروضة على صفحة العملاء' : 'Institutions shown on the clients page';
+  $('#adminView').innerHTML = `
+    <div class="panel">
+      <div class="panel-head">
+        <h2>${tr('total_clients')} (${db.clients.length})</h2>
+        <button class="btn btn-primary btn-sm" id="addBtn">+ ${tr('add_new')}</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Name (EN)</th><th>Name (AR)</th><th></th></tr></thead>
+          <tbody>
+            ${db.clients.map(c => `
+              <tr>
+                <td><strong>${esc(c.name_en)}</strong></td>
+                <td>${esc(c.name_ar)}</td>
+                <td class="actions-cell">
+                  <button class="btn btn-outline btn-sm" data-edit="${c.id}">${tr('edit')}</button>
+                  <button class="btn btn-danger btn-sm" data-del="${c.id}">${tr('delete')}</button>
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  $('#addBtn').onclick = () => clientModal();
+  $$('[data-edit]').forEach(b => b.onclick = () => clientModal(b.dataset.edit));
+  $$('[data-del]').forEach(b => b.onclick = () => {
+    if (confirm(tr('confirm_delete'))) {
+      db.clients = db.clients.filter(c => c.id !== b.dataset.del);
+      DB.save(db); render(); toast(tr('deleted'), 'success');
+    }
+  });
+}
+
+function clientModal(id) {
+  const cl = id ? db.clients.find(x=>x.id===id) : { id: DB.uid('c'), name_en:'', name_ar:'', logo:'' };
+  openModal({
+    title: id ? tr('edit') : tr('add_new'),
+    bodyHTML: `
+      <div class="form" style="border:0;padding:0;background:transparent;">
+        <div class="form-row">
+          <div><label>Name (EN)</label><input name="name_en" value="${esc(cl.name_en)}"></div>
+          <div><label>Name (AR)</label><input name="name_ar" value="${esc(cl.name_ar)}" dir="rtl"></div>
+        </div>
+        <div><label>Logo URL (optional)</label><input name="logo" value="${esc(cl.logo)}"></div>
+      </div>
+    `,
+    onSave: () => {
+      const f = getModalForm();
+      if (!f.name_en) { alert('Name required'); return false; }
+      if (id) Object.assign(db.clients.find(x=>x.id===id), f);
+      else db.clients.push({ id: cl.id, ...f });
+    }
+  });
+}
+
+// ============================================================ USERS
+function renderUsers() {
+  $('#pageTitle').textContent = tr('manage_users');
+  $('#pageSubtitle').textContent = I18N.current==='ar' ? 'المستخدمون الذين يمكنهم الدخول للوحة التحكم' : 'Users who can access the admin panel';
+  $('#adminView').innerHTML = `
+    <div class="panel">
+      <div class="panel-head">
+        <h2>${I18N.current==='ar'?'المستخدمون':'Users'} (${db.users.length})</h2>
+        <button class="btn btn-primary btn-sm" id="addBtn">+ ${tr('add_new')}</button>
+      </div>
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Created</th><th></th></tr></thead>
+          <tbody>
+            ${db.users.map(u => `
+              <tr>
+                <td><strong>${esc(u.name)}</strong></td>
+                <td>${esc(u.email)}</td>
+                <td><span class="tag-pill blue">${esc(u.role)}</span></td>
+                <td>${u.active ? '<span class="tag-pill green">Active</span>' : '<span class="tag-pill gray">Inactive</span>'}</td>
+                <td>${esc(u.created)}</td>
+                <td class="actions-cell">
+                  <button class="btn btn-outline btn-sm" data-edit="${u.id}">${tr('edit')}</button>
+                  <button class="btn btn-danger btn-sm" data-del="${u.id}">${tr('delete')}</button>
+                </td>
+              </tr>`).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  `;
+  $('#addBtn').onclick = () => userModal();
+  $$('[data-edit]').forEach(b => b.onclick = () => userModal(b.dataset.edit));
+  $$('[data-del]').forEach(b => b.onclick = () => {
+    if (confirm(tr('confirm_delete'))) {
+      db.users = db.users.filter(u => u.id !== b.dataset.del);
+      DB.save(db); render(); toast(tr('deleted'), 'success');
+    }
+  });
+}
+
+function userModal(id) {
+  const u = id ? db.users.find(x=>x.id===id) : { id: DB.uid('u'), name:'', email:'', role:'Editor', active: true, created: new Date().toISOString().slice(0,10) };
+  openModal({
+    title: id ? tr('edit') : tr('add_new'),
+    bodyHTML: `
+      <div class="form" style="border:0;padding:0;background:transparent;">
+        <div class="form-row">
+          <div><label>Name</label><input name="name" value="${esc(u.name)}"></div>
+          <div><label>Email</label><input type="email" name="email" value="${esc(u.email)}"></div>
+        </div>
+        <div class="form-row">
+          <div><label>Role</label>
+            <select name="role">${['Admin','Editor','Viewer'].map(r=>`<option ${u.role===r?'selected':''}>${r}</option>`).join('')}</select>
+          </div>
+          <div>
+            <label>Status</label>
+            <label style="display:flex;align-items:center;gap:8px;font-weight:400;margin-top:10px;">
+              <input type="checkbox" name="active" ${u.active?'checked':''} style="width:auto;margin:0;"> Active
+            </label>
+          </div>
+        </div>
+      </div>
+    `,
+    onSave: () => {
+      const f = getModalForm();
+      if (!f.name || !f.email) { alert('Name and email required'); return false; }
+      const active = $('#modalBody [name="active"]').checked;
+      if (id) Object.assign(db.users.find(x=>x.id===id), { ...f, active });
+      else db.users.push({ id: u.id, ...f, active, created: u.created });
+    }
+  });
+}
+
+// ============================================================ HOMEPAGE CONTENT
+function renderHomepage() {
+  $('#pageTitle').textContent = tr('manage_homepage');
+  $('#pageSubtitle').textContent = I18N.current==='ar' ? 'عناوين البطل والإحصاءات على الصفحة الرئيسية' : 'Hero text and stats on the home page';
+  const hp = db.homepage;
+  $('#adminView').innerHTML = `
+    <div class="panel">
+      <div class="panel-head"><h2>Hero & Stats</h2><button class="btn btn-primary btn-sm" id="saveBtn">${tr('save')}</button></div>
+      <div style="padding: 24px;">
+        <div class="form" style="border:0;padding:0;background:transparent;">
+          <div class="form-row">
+            <div><label>Hero title (EN)</label><input name="hero_title_en" value="${esc(hp.hero_title_en)}"></div>
+            <div><label>Hero title (AR)</label><input name="hero_title_ar" value="${esc(hp.hero_title_ar)}" dir="rtl"></div>
+          </div>
+          <div class="form-row">
+            <div><label>Hero subtitle (EN)</label><textarea name="hero_sub_en" rows="2">${esc(hp.hero_sub_en)}</textarea></div>
+            <div><label>Hero subtitle (AR)</label><textarea name="hero_sub_ar" rows="2" dir="rtl">${esc(hp.hero_sub_ar)}</textarea></div>
+          </div>
+          <div class="form-row">
+            <div><label>Hero CTA text (EN)</label><input name="hero_cta_en" value="${esc(hp.hero_cta_en)}"></div>
+            <div><label>Hero CTA text (AR)</label><input name="hero_cta_ar" value="${esc(hp.hero_cta_ar)}" dir="rtl"></div>
+          </div>
+          <h3 style="margin: 18px 0 0; font-size: 14px; color: var(--muted); letter-spacing:.1em; text-transform:uppercase;">Stats (4 cards)</h3>
+          ${hp.stats.map((s,i) => `
+            <div class="form-row">
+              <div><label>Value</label><input name="stat_${i}_v" value="${esc(s.v)}"></div>
+              <div><label>Label EN</label><input name="stat_${i}_en" value="${esc(s.l_en)}"></div>
+              <div><label>Label AR</label><input name="stat_${i}_ar" value="${esc(s.l_ar)}" dir="rtl"></div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+  $('#saveBtn').onclick = () => {
+    const f = {};
+    $$('#adminView [name]').forEach(el => f[el.name] = el.value);
+    db.homepage.hero_title_en = f.hero_title_en;
+    db.homepage.hero_title_ar = f.hero_title_ar;
+    db.homepage.hero_sub_en = f.hero_sub_en;
+    db.homepage.hero_sub_ar = f.hero_sub_ar;
+    db.homepage.hero_cta_en = f.hero_cta_en;
+    db.homepage.hero_cta_ar = f.hero_cta_ar;
+    db.homepage.stats = db.homepage.stats.map((_,i) => ({ v: f[`stat_${i}_v`], l_en: f[`stat_${i}_en`], l_ar: f[`stat_${i}_ar`] }));
+    DB.save(db);
+    toast(tr('saved'), 'success');
+  };
+}
+
+// ============================================================ COMPANY INFO
+function renderCompany() {
+  $('#pageTitle').textContent = tr('manage_company');
+  $('#pageSubtitle').textContent = I18N.current==='ar' ? 'معلومات الشركة المعروضة في التذييل وصفحة من نحن' : 'Company info shown in footer and About page';
+  const c = db.company;
+  $('#adminView').innerHTML = `
+    <div class="panel">
+      <div class="panel-head"><h2>Company info</h2><button class="btn btn-primary btn-sm" id="saveBtn">${tr('save')}</button></div>
+      <div style="padding:24px;">
+        <div class="form" style="border:0;padding:0;background:transparent;">
+          <div class="form-row">
+            <div><label>Name (EN)</label><input name="name_en" value="${esc(c.name_en)}"></div>
+            <div><label>Name (AR)</label><input name="name_ar" value="${esc(c.name_ar)}" dir="rtl"></div>
+          </div>
+          <div class="form-row">
+            <div><label>Tagline (EN)</label><input name="tagline_en" value="${esc(c.tagline_en)}"></div>
+            <div><label>Tagline (AR)</label><input name="tagline_ar" value="${esc(c.tagline_ar)}" dir="rtl"></div>
+          </div>
+          <div><label>About (EN)</label><textarea name="about_en" rows="4">${esc(c.about_en)}</textarea></div>
+          <div><label>About (AR)</label><textarea name="about_ar" rows="4" dir="rtl">${esc(c.about_ar)}</textarea></div>
+          <div class="form-row">
+            <div><label>Phone</label><input name="phone" value="${esc(c.phone)}"></div>
+            <div><label>Email</label><input name="email" value="${esc(c.email)}"></div>
+          </div>
+          <div class="form-row">
+            <div><label>Address (EN)</label><input name="address_en" value="${esc(c.address_en)}"></div>
+            <div><label>Address (AR)</label><input name="address_ar" value="${esc(c.address_ar)}" dir="rtl"></div>
+          </div>
+          <div class="form-row">
+            <div><label>Hours (EN)</label><input name="hours_en" value="${esc(c.hours_en)}"></div>
+            <div><label>Hours (AR)</label><input name="hours_ar" value="${esc(c.hours_ar)}" dir="rtl"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  $('#saveBtn').onclick = () => {
+    $$('#adminView [name]').forEach(el => db.company[el.name] = el.value);
+    DB.save(db); toast(tr('saved'), 'success');
+  };
+}
+
+// ============================================================ MESSAGES
+function renderMessages() {
+  $('#pageTitle').textContent = tr('view_messages');
+  $('#pageSubtitle').textContent = I18N.current==='ar' ? 'الرسائل الواردة من نموذج التواصل' : 'Inbound messages from the contact form';
+  $('#adminView').innerHTML = `
+    <div class="panel">
+      <div class="panel-head"><h2>Inbox (${db.messages.length})</h2></div>
+      <div class="table-wrap">
+        ${db.messages.length===0 ? `<div class="empty" style="margin:24px;">${I18N.current==='ar'?'لا توجد رسائل':'No messages'}</div>` : `
+          <table class="data-table">
+            <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Subject</th><th>Date</th><th></th></tr></thead>
+            <tbody>
+              ${db.messages.map(m => `
+                <tr>
+                  <td><strong>${esc(m.name)}</strong></td>
+                  <td><a href="mailto:${esc(m.email)}">${esc(m.email)}</a></td>
+                  <td>${esc(m.phone || '—')}</td>
+                  <td>${esc(m.subject || '—')}</td>
+                  <td>${new Date(m.created).toLocaleString()}</td>
+                  <td class="actions-cell">
+                    <button class="btn btn-outline btn-sm" data-view="${m.id}">View</button>
+                    <button class="btn btn-danger btn-sm" data-del="${m.id}">${tr('delete')}</button>
+                  </td>
+                </tr>`).join('')}
+            </tbody>
+          </table>
+        `}
+      </div>
+    </div>
+  `;
+  $$('[data-view]').forEach(b => b.onclick = () => {
+    const m = db.messages.find(x=>x.id===b.dataset.view);
+    openModal({
+      title: m.subject || 'Message',
+      bodyHTML: `
+        <p style="margin:0 0 12px;"><strong>${esc(m.name)}</strong> · <a href="mailto:${esc(m.email)}">${esc(m.email)}</a> · ${esc(m.phone || '')}</p>
+        <p style="white-space:pre-wrap;color:var(--ink-2);font-size:15px;">${esc(m.message)}</p>
+        <p style="margin-top:14px;color:var(--muted);font-size:13px;">${new Date(m.created).toLocaleString()}</p>
+      `,
+      onSave: () => {}
+    });
+    $('#modalSave').style.display = 'none';
+    setTimeout(() => $('#modalSave').style.display = '', 1000);
+  });
+  $$('[data-del]').forEach(b => b.onclick = () => {
+    if (confirm(tr('confirm_delete'))) {
+      db.messages = db.messages.filter(m => m.id !== b.dataset.del);
+      DB.save(db); render(); toast(tr('deleted'), 'success');
+    }
+  });
+}
+
+// ---------- Boot
+if (isLoggedIn()) showApp(); else showLogin();
+</script>
+</body>
+</html>
