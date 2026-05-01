@@ -29,19 +29,24 @@
     </a>
     <nav>
       <ul class="nav-links" id="navLinks">
-        <li><a href="#/" data-i18n="home">Home</a></li>
-        <li><a href="#/about" data-i18n="about">About</a></li>
-        <li><a href="#/services" data-i18n="services">Services</a></li>
-        <li><a href="#/products" data-i18n="products">Catalog</a></li>
-        <li><a href="#/clients" data-i18n="clients">Clients</a></li>
-        <li><a href="#/contact" data-i18n="contact">Contact</a></li>
+        <li><span class="m-ix">01</span><a href="#/" data-i18n="home">Home</a></li>
+        <li><span class="m-ix">02</span><a href="#/about" data-i18n="about">About</a></li>
+        <li><span class="m-ix">03</span><a href="#/services" data-i18n="services">Services</a></li>
+        <li><span class="m-ix">04</span><a href="#/products" data-i18n="products">Catalog</a></li>
+        <li><span class="m-ix">05</span><a href="#/clients" data-i18n="clients">Clients</a></li>
+        <li><span class="m-ix">06</span><a href="#/contact" data-i18n="contact">Contact</a></li>
+        <li class="m-foot">
+          <a href="admin.html" class="btn btn-outline btn-sm">Admin</a>
+          <span class="m-hint" data-company-tagline></span>
+        </li>
       </ul>
     </nav>
     <div class="nav-actions">
       <button class="lang-btn" id="langBtn">العربية</button>
-      <a href="admin.html" class="btn btn-outline btn-sm">Admin</a>
-      <button class="menu-toggle" id="menuToggle" aria-label="Menu">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/></svg>
+      <a href="admin.html" class="btn btn-outline btn-sm hide-on-mobile">Admin</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu">
+        <span class="mt-label">MENU</span>
+        <span class="mt-bars" aria-hidden="true"><i></i><i></i></span>
       </button>
     </div>
   </div>
@@ -155,7 +160,12 @@ $('#langBtn').addEventListener('click',()=>{
   I18N.set(I18N.current==='en'?'ar':'en');
   render(); applyI18n(); buildTicker();
 });
-$('#menuToggle').addEventListener('click',()=>$('#navLinks').classList.toggle('open'));
+$('#menuToggle').addEventListener('click',()=>{
+  const open = $('#navLinks').classList.toggle('open');
+  $('#menuToggle').classList.toggle('active', open);
+  $('#menuToggle').querySelector('.mt-label').textContent = open ? 'CLOSE' : 'MENU';
+  document.body.style.overflow = open ? 'hidden' : '';
+});
 
 // Router
 const routes = {
@@ -181,6 +191,10 @@ function afterRender(hash){
     a.classList.toggle('active', h === hash || (h==='/'&&hash==='/'));
   });
   $('#navLinks').classList.remove('open');
+  $('#menuToggle').classList.remove('active');
+  const lbl = $('#menuToggle').querySelector('.mt-label');
+  if(lbl) lbl.textContent = 'MENU';
+  document.body.style.overflow = '';
   applyI18n();
   window.scrollTo({top:0,behavior:'instant'});
 }
